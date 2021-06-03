@@ -1,0 +1,9 @@
+na pasta root do projeto criar pasta "src"
+dentro do "src" criar pasta "cgi-bin"
+dentro da "cgi-bin" ficará os scripts python
+
+iniciar server:
+root/src
+python -m http.server --cgi 8000
+
+#######################################################
