@@ -6,53 +6,320 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obras</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-    <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#exampleModal">
-        Adicionar
-      </button>
+    <!-- -------------------------- Collapsed Sidebar ---------------------------- -->
+    
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <button class="btnMenuCategorias">Categorias</button>
+        <button class="btnMenuLendo">Lendo</button>
+        <button class="btnMenuLerei">Lerei</button>
+        <button class="btnMenuLidos">Lidos</button>
+        <button class="btnMenuFavoritos">Favoritos</button>
+    </div>
       
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Adicionar Obra</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img src="" style="background-color: black; width: 140px; height: 160px;">
-              <!-- -------------------------- FORM --------------------------- -->
-              <form action="http://localhost:8000/cgi-bin/addObra.py" method="POST">
-                <div class="form-group">
-                  <label for="titleInput">Título</label>
-                  <input name="tituloInput" type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="digite o título">
-                </div>
-                <div class="form-group">
-                  <label for="sinopseInput">Sinopse</label>
-                  <input name="sinopseInput" type="text" class="form-control" id="sinopseInput" placeholder="digite a sinopse">
-                </div>
-                <button type="submit" class="btn btn-primary">Adicionar</button>
-              </form>
-              <!-- --------------------------- FORM ------------------------------ -->
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">&#9776;</button>
       </div>
 
+    <!-- -------------------------- Collapsed Sidebar ---------------------------- -->
+
+    <button class="btn btn-primary m-3" id="btnAddCateg" data-toggle="modal" data-target="#modalCategoria">
+        Adicionar Categoria
+    </button>
+
+    <!-- ----------------------------- MODAL ADD CATEGORIA -------------------------------- -->
+    <form target="transFrame" action="http://localhost:8000/cgi-bin/addCategoria.py" method="POST">
+        <iframe style="display: none;" name="transFrame" id="transFrame"></iframe>
+        <div id="modalCategoria" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Nova Categoria</h5>              
+                </div>
+                <div class="modal-body">
+                <label>Nome da Categoria:</label>
+                <input name="inputNewCategoria" id="inputNewCategoria" type="text" class="form-control my-2 w-75" placeholder="Digite aqui...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary mr-auto closeCategModal" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary ml-auto submitCategModal">Salvar</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </form>
+    <!-- ---------------------------------------------------------------------------------- -->
+    
+    <button type="button" class="btn btn-success m-3 float-right" id="btnAddObra" data-toggle="modal" data-target="#modalObra">
+        Adicionar Obra
+    </button>
+
+    <!-- ----------------------------- MODAL ADD OBRA ---------------------------------- -->
 
 
+    <div class="modal fade" id="modalObra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Adicionar Obra</h5>
+            <button type="button" class="close closeObraModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
 
+            <!-- _____________________ FORM ________________________ -->
+
+            <form target="transFrame" id="formId" action="http://localhost:8000/cgi-bin/addObra.py"  method="POST"> 
+                <iframe style="display: none;" name="transFrame" id="transFrame"></iframe>
+                <div class="form-group">
+                    <img src="" id="imgId" style="background-color: rgb(185, 185, 185); width: 200px; height: 250px;">
+                    <input class="form-control" onchange="showImage(event)" type="file" name="imageInput" id="imageInput"><p>O tamanho máximo permitido de imagem é 5 MB</p>
+
+                    <br>
+                    <label>Favorito</label>
+                    <input name="favoritoInput" type="checkbox">
+                    <br>
+                    <label>Lido</label>
+                    <input id="lidoInput" name="lidoInput" type="checkbox">
+                    <label>Lendo</label>
+                    <input id="lendoInput" name="lendoInput" type="checkbox">
+                    <label>Lerei</label>
+                    <input id="lereiInput" name="lereiInput" type="checkbox">
+                    <br>
+                    <!-- --------------------- Dropdown Categorias -------------------- -->
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-secondary dropdown-toggle btnCategOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Categoria
+                        </button>
+                        <div class="dropdown-menu divCategOptions">
+                          <!-- Dropdown menu links -->
+                        </div>
+                        <input class="" id="inputCategoria" name="categoriaInput" type="text" placeholder="Categoria" value="Input Vazio">
+                    </div>
+                    <!-- --------------------- Dropdown Categorias -------------------- -->
+                    <br>
+
+                    <label for="titleInput">Título</label>
+                    <input name="tituloInput" type="text" class="form-control" id="titleInput" aria-describedby="emailHelp" placeholder="digite o título">
+                </div>
+                <div class="form-group">
+                    <label for="sinopseInput">Sinopse</label>
+                    <input name="sinopseInput" type="text" class="form-control" id="sinopseInput" placeholder="digite a sinopse">
+                    <label>Capítulos Total</label>
+                    <input class="form-control" name="capTotalInput" placeholder="Digite aqui">
+                    <label>Capítulos Lidos</label>
+                    <input class="form-control" name="capLidoInput" placeholder="Digite aqui" >
+                </div>
+                <button type="button" class="btn btn-primary buttonClass submitObraModal" id="buttonId">Adicionar</button>
+            </form>
+
+            <!-- _____________________ FORM ________________________ -->
+
+            </div>
+            <div class="modal-footer">
+                <!-- ----------- LOADING ------------ -->
+                <div class="m-auto" id="loaderDiv"></div>
+                <!-- -------------------------------- -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- ----------------------------- MODAL ---------------------------------- -->
+
+
+    <!-- ____________________ CARDS ______________________ -->
+
+    <h2 class="m-5">Favoritos</h2>
+    
+    <div class="favoritosDiv">
+        
+    </div>
+
+
+    <h2 class="mx-5 my-3 mt-5">Mais Recentes</h2>
+    <div class="recentesDiv">
+
+    </div>
+
+   
+    <!-- <div class="card m-5" style="width: 22rem;">
+        <img class="card-img-top m-3 imgCard" style="background-color:rgb(185, 185, 185); width: 300px; height: 230px;" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title tituloCard">Card title</h5>
+          <p class="card-text sinopseCard">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Ver</a>
+        </div>
+    </div> -->
+
+    <!-- ____________________ CARDS ______________________ -->
 
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+    
+    <script src="readJson.js"></script>
+    <script src="sidebarScript.js"></script>
+
+    <script>
+
+      // -----------------------------------------------------------------------------------------------
+        const form = document.getElementById("formId")        
+        const imageInput = document.getElementById("imageInput")
+        const buttonSubmit = document.getElementById("buttonId")
+
+        buttonSubmit.addEventListener("click", e => {
+            e.preventDefault()
+        
+            const endpoint = "saveImage.php"
+            const formData = new FormData()
+
+            formData.append('imageInput', imageInput.files[0]) // image é o "name" do input
+            
+            // função assincrona - só irá fazer o submit após salvar a imagem
+            async function addObra(){
+                await fetch(endpoint, {
+                    method: 'post',
+                    body: formData
+                }).catch(console.error)
+                
+                // Submit após salvar a imagem
+                form.submit()
+
+            }
+
+            addObra()
+
+            
+        })
+
+      // -----------------------------------------------------------------------------------------------
+
+      // Quando adiciona uma imagem ele é mostrada na tag "img"
+        function showImage(value) {
+
+            let imgTag = document.getElementById("imgId")
+
+            if(value.target.files[0].size > 5000000) {
+                alert("Tamanho máximo permitido é de 5MB")
+                imageInput.value = ""
+                imgTag.src = ""
+            } else {
+                imgTag.src = URL.createObjectURL(value.target.files[0]);
+                console.log(value.target.files[0].name)                
+            }
+        }
+
+      // ------------------------------------------------------------------------------------------------
+
+      
+      // Ativar / Desativar - Checkbox ------- Regra de opções únicas 
+        let lido = document.getElementById('lidoInput')
+        let lendo = document.getElementById('lendoInput')
+        let lerei = document.getElementById('lereiInput')
+
+        lido.addEventListener("click", e => {
+            if (lido.checked == "true"){
+                lido.checked = !lido.checked
+                console.log("lido: " + lido.checked)
+            } else {
+                lido.checked = lido.checked 
+                if(lendo.checked) {lendo.checked = !lendo.checked}
+                if(lerei.checked) {lerei.checked = !lerei.checked}
+                console.log("lido: " + lido.checked)
+                console.log("lendo: " + lendo.checked)
+                console.log("lerei: " + lerei.checked)
+            }
+        })
+
+        lendo.addEventListener("click", e => {
+            if (lendo.checked == "true"){
+                lendo.checked = !lendo.checked
+                console.log("lendo: " + lendo.checked)
+            } else {
+                lendo.checked = lendo.checked
+                if(lido.checked) {lido.checked = !lido.checked}
+                if(lerei.checked) {lerei.checked = !lerei.checked}
+                console.log("lendo: " + lendo.checked)
+                console.log("lido: " + lido.checked)
+                console.log("lerei: " + lerei.checked)
+            }
+        })
+
+        lerei.addEventListener("click", e => {
+            if (lerei.checked == "true"){
+                lerei.checked = !lerei.checked
+                console.log("lerei: " + lerei.checked)
+            } else {
+                lerei.checked = lerei.checked
+                if(lido.checked) {lido.checked = !lido.checked}
+                if(lendo.checked) {lendo.checked = !lendo.checked}
+                console.log("lerei: " + lerei.checked)
+                console.log("lido: " + lido.checked)
+                console.log("lendo: " + lendo.checked)
+            }
+        })
+      
+        // ___________________________________________________________________________________________________
+
+        // ------------------- Categorias -------------------
+        
+                               
+        inputCateg = document.getElementById('inputCategoria')
+        
+       
+        listCategoria = []
+
+        function chooseCategory(e, clickedButton) {
+            e.preventDefault()
+
+            // Verificar se valor já existe na Lista de Categorias
+            if (listCategoria.includes(clickedButton)) {
+                return
+            } else {
+                listCategoria.push(clickedButton)
+            }
+
+            console.log(listCategoria)
+
+            inputCateg.value = listCategoria // input de categoria recebe o valor do botão clicado
+        }
+
+        // __________________________ Close Modal Categoria ____________________________
+
+        submitCategModal = document.querySelector('.submitCategModal')
+        closeCategModal = document.querySelector('.closeCategModal')
+
+
+        submitCategModal.addEventListener('click', e => {
+           // closeCategModal.click()
+            /* setInterval(() => {
+                location.reload()
+            }, 2000) */
+        })
+
+        // __________________________ Close Modal Obra ____________________________
+
+        submitObraModal = document.querySelector('.submitObraModal')
+        closeObraModal = document.querySelector('.closeObraModal')
+
+
+        submitObraModal.addEventListener('click', e => {
+          //  closeObraModal.click()
+            loaderDiv = document.querySelector("#loaderDiv")
+            loaderDiv.classList.add("loader")
+        
+            setInterval(() => {
+                location.reload()
+            }, 3000) 
+        })
+
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,108 @@
+{
+    "listCategorias":[
+        {
+            "categoria":"Aventura"
+        },
+        {
+            "categoria":"Ação"
+        },
+        {
+            "categoria":"comedia"
+        },
+        {
+            "categoria":"teste"
+        },
+        {
+            "categoria":"teste2"
+        },
+        {
+            "categoria":"testando interval"
+        }
+    ],
+    "listData":[
+        {
+            "imagem":"1068673.jpg",
+            "titulo":"teste1",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        },
+        {
+            "imagem":"1033335.jpg",
+            "titulo":"teste2",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        },
+        {
+            "imagem":"1074327.png",
+            "titulo":"teste3",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        },
+        {
+            "imagem":"Wallpaper_19.png",
+            "titulo":"teste4",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        },
+        {
+            "imagem":"Wallpaper_15.png",
+            "titulo":"teste5",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        },
+        {
+            "imagem":"background-blur-bokeh-457712.jpg",
+            "titulo":"testes hehe",
+            "sinopse":null,
+            "capTotal":null,
+            "capLido":null,
+            "categoria":[
+                "Input Vazio"
+            ],
+            "favorito":null,
+            "lido":null,
+            "lendo":null,
+            "lerei":null
+        }
+    ]
+}

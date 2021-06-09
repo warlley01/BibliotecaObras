@@ -2,8 +2,44 @@ na pasta root do projeto criar pasta "src"
 dentro do "src" criar pasta "cgi-bin"
 dentro da "cgi-bin" ficará os scripts python
 
-iniciar server:
-root/src
-python -m http.server --cgi 8000
+######################################################
 
-#######################################################
+Rodar servidor para SaveImage.php
+
+        iniciar server
+root:
+    php -S localhost:3003
+     
+
+######################################################
+
+        iniciar server
+root/src:
+    python -m http.server --cgi 8000
+
+######################################################
+
+Configuração "php.ini":
+
+    upload_max_filesize = 200M
+
+    post_max_size = 200M
+
+    memory_limit = -1
+
+    max_execution_time = 300
+
+######################################################
+
+Estrutura do Json - 'listData[]' irá conter as "obras"
+____________________________________________________________________
+myData = {
+    "listData" : [
+        {
+            "imagem" : "imagens/image.jpg",
+            "titulo" : "teste titulo",
+            "sinopse" : "teste sinopse"
+        }
+    ]
+}
+____________________________________________________________________
